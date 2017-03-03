@@ -70,6 +70,6 @@ public class Solution {
         Solution solution = new Solution();
         Integer length = solution.ladderLength("hit","cog",list1);
         System.out.println(length);
-        //
+        //测试好不好用
     }
 }
