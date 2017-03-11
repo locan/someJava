@@ -52,6 +52,9 @@ public class SortTestHelper {
         System.out.println();
     }
 
+    public static boolean less(Comparable t,Comparable t2){
+        return t.compareTo(t2)<0;
+    }
 
     public static void swap(Integer[] array,Integer a,Integer b){
         Integer c=array[a];
