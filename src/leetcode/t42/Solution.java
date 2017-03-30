@@ -1,5 +1,6 @@
 package leetcode.t42;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -7,7 +8,6 @@ import java.util.PriorityQueue;
  */
 public class Solution {
     public int trapRainWater(int[][] heightMap) {
-        //一个单元格用一个Cell来表示
         class Cell{
             int x, y,h;
             Cell(int x, int y, int height){
@@ -15,17 +15,17 @@ public class Solution {
                 this.y = y;
                 h = height;
             }
+            public int getH(){
+                return h;
+            }
         }
         if (heightMap == null || heightMap.length == 0 || heightMap[0].length == 0) {
             return 0;
         }
-
         int m = heightMap.length;
         int n = heightMap[0].length;
-        //优先队列，每次按照优先度输出队列，而不是按照顺序，这里是每次输出最矮的哪一个
-        PriorityQueue<Cell> pq = new PriorityQueue<>((v1, v2)->v1.h - v2.h);
+        PriorityQueue<Cell> pq = new PriorityQueue<>(Comparator.comparingInt(Cell::getH));
         boolean[][] visited = new boolean[m][n];
-        //将四周初始化为访问过的，周围的一边是怎么都没法盛水的
         for(int i = 0; i < n; i++){
             visited[0][i] = true;
             visited[m-1][i] = true;
@@ -38,11 +38,9 @@ public class Solution {
             pq.offer(new Cell(i, 0, heightMap[i][0]));
             pq.offer(new Cell(i, n-1, heightMap[i][n-1]));
         }
-        //四个方向
         int[] xs = {0,  0, 1, -1};
         int[] ys = {1, -1, 0,  0};
         int sum = 0;
-        //开始计算收集到的雨水，每次取出符合条件最矮的按个，然后计算差值，就是当前单元格可以容纳的了
         while (!pq.isEmpty()) {
             Cell cell = pq.poll();
             for (int i = 0; i < 4; i++) {
