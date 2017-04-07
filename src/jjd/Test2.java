@@ -20,6 +20,8 @@ public class Test2 {
         for(int i=xn;i<n;i++){
             e+=select(b,0,i);
         }
+        double result = 1.0*Math.round(e*100000)/100000;
+        System.out.printf("%.5f",result);
         System.out.printf("%.5f",e);
 
     }
@@ -38,9 +40,13 @@ public class Test2 {
         }else if(length-begin<num)
             return 0;
         // begin
-        double s = a[begin]*select(a,begin+1,num-1);
+        double s = 0d;
+        double s1 = 0d;
+        if(a[begin]!=0)
+           s =a[begin]*select(a,begin+1,num-1);
         // no begin
-        double s1 =select(a,begin+1,num)*(1-a[begin]);
+        if(1-a[begin]!=0)
+            s1 =select(a,begin+1,num)*(1-a[begin]);
         return s+s1;
     }
 }
